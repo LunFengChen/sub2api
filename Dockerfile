@@ -29,6 +29,8 @@ RUN pnpm install --frozen-lockfile
 
 # Copy frontend source and build
 COPY frontend/ ./
+# 前端用 ?raw 引入仓库根 docs/legal/*.md (../../../../docs/legal), 放到 /app/docs/legal
+COPY docs/legal /app/docs/legal
 RUN pnpm run build
 
 # -----------------------------------------------------------------------------

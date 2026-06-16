@@ -11,6 +11,9 @@
 *.md
 !deploy/DOCKER.md
 docs/
+# 前端 ?raw 引入的合规文档需进构建上下文
+!docs/legal/
+!docs/legal/*.md
 
 # IDE
 .idea/
