@@ -379,6 +379,7 @@ export default {
     apiKeys: 'API Keys',
     usage: 'Usage',
     redeem: 'Redeem',
+    cardShop: 'Card Shop',
     affiliate: 'Affiliate Rebates',
     affiliateManagement: 'Affiliate Rebates',
     affiliateInviteRecords: 'Invite Records',
@@ -1149,6 +1150,12 @@ export default {
       line3: 'Transfer rebate quota to balance at any time.',
       line4: 'Newly earned rebates may have a waiting period before they can be transferred.'
     }
+  },
+
+  // Card Shop
+  cardShop: {
+    description: 'Purchase top-up cards quickly via Card Shop',
+    openInNewTab: 'Open in new tab',
   },
 
   // Redeem

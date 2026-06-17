@@ -230,6 +230,17 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
+    path: '/card-shop',
+    name: 'CardShop',
+    component: () => import('@/views/user/CardShopView.vue'),
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: false,
+      title: 'Card Shop',
+      titleKey: 'nav.cardShop',
+    }
+  },
+  {
     path: '/affiliate',
     name: 'Affiliate',
     component: () => import('@/views/user/AffiliateView.vue'),

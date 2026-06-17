@@ -379,6 +379,7 @@ export default {
     apiKeys: 'API 密钥',
     usage: '使用记录',
     redeem: '兑换',
+    cardShop: '卡网充值',
     affiliate: '邀请返利',
     affiliateManagement: '邀请返利',
     affiliateInviteRecords: '邀请记录',
@@ -1153,6 +1154,12 @@ export default {
       line3: '返利额度可随时转入账户余额。',
       line4: '新产生的返利需要经过冻结期后才能提现。'
     }
+  },
+
+  // Card Shop
+  cardShop: {
+    description: '通过卡网快速购买充值卡',
+    openInNewTab: '在新标签页打开',
   },
 
   // Redeem
