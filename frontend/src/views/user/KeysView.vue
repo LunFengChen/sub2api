@@ -24,8 +24,8 @@
             />
           </div>
           <EndpointPopover
-            v-if="publicSettings?.api_base_url || (publicSettings?.custom_endpoints?.length ?? 0) > 0"
-            :api-base-url="publicSettings?.api_base_url || ''"
+            v-if="publicSettings"
+            :api-base-url="effectiveApiBaseUrl"
             :custom-endpoints="publicSettings?.custom_endpoints || []"
           />
         </div>
@@ -1149,6 +1149,10 @@ const selectedKey = ref<ApiKey | null>(null)
 const copiedKeyId = ref<number | null>(null)
 const groupSelectorKeyId = ref<number | null>(null)
 const publicSettings = ref<PublicSettings | null>(null)
+// api_base_url 兜底：若管理员未配置则使用当前站点 origin
+const effectiveApiBaseUrl = computed(
+  () => publicSettings.value?.api_base_url || window.location.origin
+)
 const dropdownRef = ref<HTMLElement | null>(null)
 const dropdownPosition = ref<{ top?: number; bottom?: number; left: number } | null>(null)
 const groupButtonRefs = ref<Map<number, HTMLElement>>(new Map())

@@ -18,11 +18,20 @@ let copiedResetTimer: number | undefined
 const allEndpoints = computed(() => {
   const items: Array<{ name: string; endpoint: string; description: string; isDefault: boolean }> = []
   if (props.apiBaseUrl) {
+    const baseRoot = props.apiBaseUrl.replace(/\/+$/, '')
+    // Anthropic SDK uses the root URL directly (no /v1 suffix)
     items.push({
-      name: t('keys.endpoints.title'),
-      endpoint: props.apiBaseUrl,
+      name: 'Anthropic baseurl',
+      endpoint: baseRoot + '/',
       description: '',
       isDefault: true,
+    })
+    // OpenAI-compatible SDKs need the /v1 suffix
+    items.push({
+      name: 'OpenAI baseurl',
+      endpoint: baseRoot + '/v1',
+      description: '',
+      isDefault: false,
     })
   }
   for (const ep of props.customEndpoints) {

@@ -379,6 +379,7 @@ export default {
     apiKeys: 'API Keys',
     usage: 'Usage',
     redeem: 'Redeem',
+    cardShop: 'Card Shop',
     affiliate: 'Affiliate Rebates',
     affiliateManagement: 'Affiliate Rebates',
     affiliateInviteRecords: 'Invite Records',
@@ -462,13 +463,13 @@ export default {
     sessionExpired: 'Session expired',
     sessionExpiredDesc: 'Please go back to the registration page and start again.',
     verificationCode: 'Verification Code',
-    verificationCodeHint: 'Enter the 6-digit code sent to your email',
+    verificationCodeHint: 'Enter the 6-digit code sent to your email (if not received, check your spam/junk folder)',
     sendingCode: 'Sending...',
     sendCode: 'Send code',
     clickToResend: 'Click to resend code',
     resendCode: 'Resend verification code',
     sendCodeDesc: "We'll send a verification code to",
-    codeSentSuccess: 'Verification code sent! Please check your inbox.',
+    codeSentSuccess: 'Verification code sent! Please check your inbox — if not found, check your spam/junk folder.',
     verifying: 'Verifying...',
     verifyAndCreate: 'Verify & Create Account',
     resendCountdown: 'Resend code in {countdown}s',
@@ -923,6 +924,7 @@ export default {
     ws: 'WS',
     stream: 'Stream',
     sync: 'Sync',
+    cyber: 'Cyber',
     unknown: 'Unknown',
     in: 'In',
     out: 'Out',
@@ -980,7 +982,7 @@ export default {
       categories: {
         auth: 'Auth failed', rate_limit: 'Rate limited', quota: 'Balance/Subscription',
         invalid_request: 'Invalid request', service_unavailable: 'Service unavailable',
-        upstream: 'Upstream error', internal: 'Platform error', other: 'Other',
+        upstream: 'Upstream error', internal: 'Platform error', other: 'Other', cyber: 'Cyber policy',
       },
       detail: {
         title: 'Error Request Detail',
@@ -1151,6 +1153,12 @@ export default {
     }
   },
 
+  // Card Shop
+  cardShop: {
+    description: 'Purchase top-up cards quickly via Card Shop',
+    openInNewTab: 'Open in new tab',
+  },
+
   // Redeem
   redeem: {
     title: 'Redeem Code',
@@ -1271,7 +1279,7 @@ export default {
       emailCode: 'Email Verification Code',
       enterEmailCode: 'Enter 6-digit code',
       sendCode: 'Send Code',
-      codeSent: 'Verification code sent to your email',
+      codeSent: 'Verification code sent to your email — if not found, check your spam/junk folder',
       sendCodeFailed: 'Failed to send verification code'
     },
     balanceNotify: {
@@ -2627,6 +2635,9 @@ export default {
       emailOnHitHint: 'When enabled, send a risk-control email on every hit; auto-ban notices are always sent.',
       autoBan: 'Auto Ban User',
       autoBanHint: 'Disable the user, invalidate auth cache, and send a ban notice after the hit threshold is reached.',
+      cyberPolicyExcludeBan: 'Exclude Cyber Policy Hits from Ban Count',
+      cyberPolicyExcludeBanHint: 'When enabled, cyber_policy hits no longer count toward auto-ban violations: no ban judgment on the hit itself, and history rows are excluded from the rolling count. Logs and notice emails are unaffected.',
+      violationNotCounted: 'Not counted',
       banThreshold: 'Ban Threshold',
       violationWindowHours: 'Count Window (hours)',
       hitRetentionDays: 'Hit Record Retention (days)',
@@ -2771,6 +2782,7 @@ export default {
       action: {
         block: 'Blocked',
         keywordBlock: 'Keyword Blocked',
+        cyberPolicy: 'Cyber policy',
         error: 'Error',
       },
     },
@@ -2835,6 +2847,8 @@ export default {
         groupNamePlaceholder: 'Optional, used to group rows in user view',
         intervalSeconds: 'Interval (seconds)',
         intervalSecondsHint: 'Range: 15 - 3600 seconds',
+        jitterSeconds: 'Random Jitter (± seconds)',
+        jitterSecondsHint: 'Each check fires at interval ± a random offset within this value; 0 means fixed interval. Interval minus jitter must be ≥ 15s',
         enabled: 'Enable monitor',
         kindRequired: 'Please select a provider'
       },
@@ -3151,6 +3165,7 @@ export default {
       },
       columns: {
         name: 'Name',
+        id: 'Account ID',
         platformType: 'Platform/Type',
         platform: 'Platform',
         type: 'Type',
@@ -4104,6 +4119,17 @@ export default {
         claude: 'Claude',
         passiveSampled: 'Passive',
         activeQuery: 'Query'
+      },
+      openaiQuotaReset: {
+        count: 'Credits',
+        reset: 'Reset',
+        countTooltipLoad: 'Click to load the available reset-credit count',
+        countTooltipRefresh: 'Click to refresh the available reset-credit count',
+        resetTooltipReady: 'Consume 1 reset credit to immediately restore the window',
+        resetTooltipNeedQuery: 'Click Credits first to load the available count',
+        resetTooltipNoCredits: 'No reset credits available',
+        noCreditsAvailable: 'No reset credits available',
+        resetSuccess: 'Reset {windows} window(s)'
       },
       tier: {
         free: 'Free',
@@ -5438,6 +5464,9 @@ export default {
           configureLink: 'Configure content moderation in Risk Control',
           enabled: 'Enable Risk Control',
           enabledHint: 'When off, the admin sidebar entry is hidden and gateway moderation is skipped.',
+          cyberSessionBlock: 'Cyber session auto-block',
+          cyberSessionBlockHint: 'When enabled, sessions hit by upstream cyber_policy are blocked locally for the TTL and no longer forwarded. Only the offending session is blocked; other sessions on the same key are unaffected.',
+          cyberSessionBlockTTL: 'Block TTL (seconds)',
         },
         affiliate: {
           title: 'Affiliate (Invite Rebate)',
@@ -5712,6 +5741,30 @@ export default {
         metadataPassthroughHint: 'Pass through client\'s original metadata.user_id without rewriting. May improve upstream cache hit rates.',
         cchSigning: 'CCH Signing',
         cchSigningHint: 'Sign the billing header in forwarded requests with CCH hash. When disabled, the placeholder is preserved.',
+        claudeOAuthSystemPromptInjection: 'Claude OAuth System Blocks',
+        claudeOAuthSystemPromptInjectionHint: 'Inject Claude Code-like system blocks for Claude OAuth requests from non-Claude-Code clients. Enabled by default.',
+        claudeOAuthSystemPrompt: 'Claude OAuth Expansion Prompt',
+        claudeOAuthSystemPromptPlaceholder: 'Leave empty to use the built-in Claude Code expansion prompt.',
+        claudeOAuthSystemPromptHint: 'Legacy compatibility: controls only the third injected system block.',
+        claudeOAuthSystemPromptBlocks: 'Claude OAuth System Blocks',
+        claudeOAuthSystemPromptBlocksPlaceholder: 'Leave empty to use the built-in 3 blocks. Supports an array or {"blocks": [...]}.',
+        claudeOAuthSystemPromptBlocksHint: 'Each block is saved as JSON with enabled, type, text, and optional cache_control. {billing_header} stays dynamic per request; the Claude Code identity and expansion prompts can be edited directly or restored from presets.',
+        systemBlockTitle: 'System Block {index}',
+        systemBlockPreset: 'Preset',
+        systemBlockPresetBilling: 'Billing header',
+        systemBlockPresetIdentity: 'Claude Code identity',
+        systemBlockPresetExpansion: 'Claude Code expansion',
+        systemBlockPresetCustom: 'Custom',
+        systemBlockType: 'Type',
+        systemBlockTypeText: 'Text',
+        systemBlockText: 'Content',
+        systemBlockCacheControl: 'Cache control',
+        systemBlockHide: 'Hide block details',
+        systemBlockShow: 'Show block details',
+        addSystemBlock: 'Add block',
+        resetSystemBlocks: 'Reset defaults',
+        cacheTTL5m: '5 minutes',
+        cacheTTL1h: '1 hour',
         anthropicCacheTTL1hInjection: 'Anthropic Cache TTL Injection',
         anthropicCacheTTL1hInjectionHint: 'When enabled, existing ephemeral cache_control blocks in Anthropic OAuth/Setup Token request bodies are forced to 1h; response usage is billed back as 5m by default, with account-level TTL billing override taking priority.',
         rewriteMessageCacheControl: 'Rewrite Message Cache Breakpoints',
