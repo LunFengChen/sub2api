@@ -24,6 +24,14 @@ const allEndpoints = computed(() => {
       description: '',
       isDefault: true,
     })
+    // Append a baseurl badge so users know what to fill in OpenAI-compatible SDKs
+    const v1Url = props.apiBaseUrl.replace(/\/+$/, '') + '/v1'
+    items.push({
+      name: 'baseurl',
+      endpoint: v1Url,
+      description: '',
+      isDefault: false,
+    })
   }
   for (const ep of props.customEndpoints) {
     items.push({ ...ep, isDefault: false })
