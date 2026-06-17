@@ -5014,7 +5014,7 @@
                   :placeholder="t('admin.settings.site.cardShopUrlPlaceholder', 'https://example.com/shop')"
                 />
                 <p class="mt-1.5 text-xs text-gray-500 dark:text-gray-400">
-                  {{ t("admin.settings.site.cardShopUrlHint", "用于"卡网充值"页面嵌入的 iframe 地址，留空则隐藏该页面内容") }}
+                  {{ t("admin.settings.site.cardShopUrlHint", "用于卡网充值页面嵌入的 iframe 地址，留空则隐藏该页面内容") }}
                 </p>
               </div>
 
