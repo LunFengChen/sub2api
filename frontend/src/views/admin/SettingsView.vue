@@ -4769,6 +4769,24 @@
                 </p>
               </div>
 
+              <!-- Card Shop URL -->
+              <div class="border-t border-gray-100 pt-4 dark:border-dark-700">
+                <label
+                  class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
+                  {{ t("admin.settings.site.cardShopUrl", "卡网充值 URL") }}
+                </label>
+                <input
+                  v-model="form.card_shop_url"
+                  type="text"
+                  class="input font-mono text-sm"
+                  :placeholder="t('admin.settings.site.cardShopUrlPlaceholder', 'https://example.com/shop')"
+                />
+                <p class="mt-1.5 text-xs text-gray-500 dark:text-gray-400">
+                  {{ t("admin.settings.site.cardShopUrlHint", "用于"卡网充值"页面嵌入的 iframe 地址，留空则隐藏该页面内容") }}
+                </p>
+              </div>
+
               <!-- Hide CCS Import Button -->
               <div
                 class="flex items-center justify-between border-t border-gray-100 pt-4 dark:border-dark-700"
@@ -7041,6 +7059,7 @@ const form = reactive<SettingsForm>({
   contact_info: "",
   doc_url: "",
   home_content: "",
+  card_shop_url: "",
   backend_mode_enabled: false,
   hide_ccs_import_button: false,
   payment_enabled: false,
@@ -8145,6 +8164,7 @@ async function saveSettings() {
     // Optional URL fields: auto-clear invalid values so they don't cause backend 400 errors
     if (!isValidHttpUrl(form.frontend_url)) form.frontend_url = "";
     if (!isValidHttpUrl(form.doc_url)) form.doc_url = "";
+    if (!isValidHttpUrl(form.card_shop_url)) form.card_shop_url = "";
     syncWeChatConnectMode();
     const wechatStoredMode = deriveWeChatConnectStoredMode(
       form.wechat_connect_open_enabled,
@@ -8187,6 +8207,7 @@ async function saveSettings() {
       contact_info: form.contact_info,
       doc_url: form.doc_url,
       home_content: form.home_content,
+      card_shop_url: form.card_shop_url,
       backend_mode_enabled: form.backend_mode_enabled,
       hide_ccs_import_button: form.hide_ccs_import_button,
       table_default_page_size: form.table_default_page_size,

@@ -8,7 +8,8 @@
           <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ t('cardShop.description') }}</p>
         </div>
         <a
-          :href="SHOP_URL"
+          v-if="shopUrl"
+          :href="shopUrl"
           target="_blank"
           rel="noopener noreferrer"
           class="btn btn-secondary flex items-center gap-2 text-sm"
@@ -20,10 +21,15 @@
         </a>
       </div>
 
+      <!-- Not configured placeholder -->
+      <div v-if="!shopUrl" class="card flex-1 flex items-center justify-center" style="min-height: 600px;">
+        <p class="text-sm text-gray-400 dark:text-gray-500">{{ t('cardShop.notConfigured', '商城暂未配置，请联系管理员') }}</p>
+      </div>
+
       <!-- iframe wrapper -->
-      <div class="card flex-1 overflow-hidden p-0" style="min-height: 600px;">
+      <div v-else class="card flex-1 overflow-hidden p-0" style="min-height: 600px;">
         <iframe
-          :src="SHOP_URL"
+          :src="shopUrl"
           class="h-full w-full border-0"
           style="min-height: 600px;"
           allow="payment"
@@ -36,12 +42,15 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AppLayout from '@/components/layout/AppLayout.vue'
+import { useAppStore } from '@/stores/app'
 
 const { t } = useI18n()
+const appStore = useAppStore()
 
-const SHOP_URL = 'https://pay.ldxp.cn/shop/VVVME83N'
+const shopUrl = computed(() => appStore.cachedPublicSettings?.card_shop_url || '')
 
 function onLoad() {
   // iframe loaded successfully
