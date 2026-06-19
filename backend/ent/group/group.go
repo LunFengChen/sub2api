@@ -86,6 +86,10 @@ const (
 	FieldModelsListConfig = "models_list_config"
 	// FieldRpmLimit holds the string denoting the rpm_limit field in the database.
 	FieldRpmLimit = "rpm_limit"
+	// FieldActiveHoursStart holds the string denoting the active_hours_start field in the database.
+	FieldActiveHoursStart = "active_hours_start"
+	// FieldActiveHoursEnd holds the string denoting the active_hours_end field in the database.
+	FieldActiveHoursEnd = "active_hours_end"
 	// EdgeAPIKeys holds the string denoting the api_keys edge name in mutations.
 	EdgeAPIKeys = "api_keys"
 	// EdgeRedeemCodes holds the string denoting the redeem_codes edge name in mutations.
@@ -196,6 +200,8 @@ var Columns = []string{
 	FieldMessagesDispatchModelConfig,
 	FieldModelsListConfig,
 	FieldRpmLimit,
+	FieldActiveHoursStart,
+	FieldActiveHoursEnd,
 }
 
 var (
@@ -446,6 +452,16 @@ func ByDefaultMappedModel(opts ...sql.OrderTermOption) OrderOption {
 // ByRpmLimit orders the results by the rpm_limit field.
 func ByRpmLimit(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldRpmLimit, opts...).ToFunc()
+}
+
+// ByActiveHoursStart orders the results by the active_hours_start field.
+func ByActiveHoursStart(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldActiveHoursStart, opts...).ToFunc()
+}
+
+// ByActiveHoursEnd orders the results by the active_hours_end field.
+func ByActiveHoursEnd(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldActiveHoursEnd, opts...).ToFunc()
 }
 
 // ByAPIKeysCount orders the results by api_keys count.

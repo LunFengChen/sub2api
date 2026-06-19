@@ -509,6 +509,31 @@
           />
           <p class="input-hint">{{ t("admin.groups.form.rpmLimitHint") }}</p>
         </div>
+        <div>
+          <label class="input-label">{{ t("admin.groups.form.activeHours") }}</label>
+          <div class="flex items-center gap-2">
+            <input
+              v-model.number="createForm.active_hours_start"
+              type="number"
+              min="0"
+              max="23"
+              step="1"
+              class="input w-20"
+              placeholder="起"
+            />
+            <span class="text-sm text-muted-foreground">—</span>
+            <input
+              v-model.number="createForm.active_hours_end"
+              type="number"
+              min="0"
+              max="23"
+              step="1"
+              class="input w-20"
+              placeholder="止"
+            />
+          </div>
+          <p class="input-hint">{{ t("admin.groups.form.activeHoursHint") }}</p>
+        </div>
         <div
           v-if="createForm.subscription_type !== 'subscription'"
           data-tour="group-form-exclusive"
@@ -1794,6 +1819,31 @@
             :placeholder="t('admin.groups.form.rpmLimitPlaceholder')"
           />
           <p class="input-hint">{{ t("admin.groups.form.rpmLimitHint") }}</p>
+        </div>
+        <div>
+          <label class="input-label">{{ t("admin.groups.form.activeHours") }}</label>
+          <div class="flex items-center gap-2">
+            <input
+              v-model.number="editForm.active_hours_start"
+              type="number"
+              min="0"
+              max="23"
+              step="1"
+              class="input w-20"
+              placeholder="起"
+            />
+            <span class="text-sm text-muted-foreground">—</span>
+            <input
+              v-model.number="editForm.active_hours_end"
+              type="number"
+              min="0"
+              max="23"
+              step="1"
+              class="input w-20"
+              placeholder="止"
+            />
+          </div>
+          <p class="input-hint">{{ t("admin.groups.form.activeHoursHint") }}</p>
         </div>
         <div v-if="editForm.subscription_type !== 'subscription'">
           <div class="mb-1.5 flex items-center gap-1">
@@ -3363,6 +3413,8 @@ const createForm = reactive({
   copy_accounts_from_group_ids: [] as number[],
   // 分组级 RPM 限制（每用户每分钟最大请求数；0 = 不限制）
   rpm_limit: 0 as number,
+  active_hours_start: null as number | null,
+  active_hours_end: null as number | null,
 });
 
 // 简单账号类型（用于模型路由选择）
@@ -3695,6 +3747,8 @@ const editForm = reactive({
   copy_accounts_from_group_ids: [] as number[],
   // 分组级 RPM 限制（每用户每分钟最大请求数；0 = 不限制）
   rpm_limit: 0 as number,
+  active_hours_start: null as number | null,
+  active_hours_end: null as number | null,
 });
 
 type ImagePricingFormState = {
@@ -3932,6 +3986,8 @@ const closeCreateModal = () => {
   createForm.mcp_xml_inject = true;
   createForm.copy_accounts_from_group_ids = [];
   createForm.rpm_limit = 0;
+  createForm.active_hours_start = null;
+  createForm.active_hours_end = null;
   resetModelsListState(createModelsListState);
   createModelRoutingRules.value = [];
 };
@@ -4074,6 +4130,8 @@ const handleEdit = async (group: AdminGroup) => {
   editForm.mcp_xml_inject = group.mcp_xml_inject ?? true;
   editForm.copy_accounts_from_group_ids = []; // 复制账号字段每次编辑时重置为空
   editForm.rpm_limit = group.rpm_limit ?? 0;
+  editForm.active_hours_start = group.active_hours_start ?? null;
+  editForm.active_hours_end = group.active_hours_end ?? null;
   resetModelsListState(editModelsListState, group.models_list_config);
   // 加载模型路由规则（异步加载账号名称）
   editModelRoutingRules.value = await convertApiFormatToRoutingRules(

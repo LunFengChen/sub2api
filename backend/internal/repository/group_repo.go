@@ -67,7 +67,9 @@ func (r *groupRepository) Create(ctx context.Context, groupIn *service.Group) er
 		SetDefaultMappedModel(groupIn.DefaultMappedModel).
 		SetMessagesDispatchModelConfig(groupIn.MessagesDispatchModelConfig).
 		SetModelsListConfig(groupIn.ModelsListConfig).
-		SetRpmLimit(groupIn.RPMLimit)
+		SetRpmLimit(groupIn.RPMLimit).
+		SetNillableActiveHoursStart(groupIn.ActiveHoursStart).
+		SetNillableActiveHoursEnd(groupIn.ActiveHoursEnd)
 
 	// 设置模型路由配置
 	if groupIn.ModelRouting != nil {
@@ -143,7 +145,9 @@ func (r *groupRepository) Update(ctx context.Context, groupIn *service.Group) er
 		SetDefaultMappedModel(groupIn.DefaultMappedModel).
 		SetMessagesDispatchModelConfig(groupIn.MessagesDispatchModelConfig).
 		SetModelsListConfig(groupIn.ModelsListConfig).
-		SetRpmLimit(groupIn.RPMLimit)
+		SetRpmLimit(groupIn.RPMLimit).
+		SetNillableActiveHoursStart(groupIn.ActiveHoursStart).
+		SetNillableActiveHoursEnd(groupIn.ActiveHoursEnd)
 
 	// 显式处理可空字段：nil 需要 clear，非 nil 需要 set。
 	if groupIn.DailyLimitUSD != nil {
@@ -199,6 +203,18 @@ func (r *groupRepository) Update(ctx context.Context, groupIn *service.Group) er
 
 	// 处理 SupportedModelScopes（始终设置，空数组表示不限制）
 	builder = builder.SetSupportedModelScopes(groupIn.SupportedModelScopes)
+
+	// 处理 ActiveHoursStart/End：nil 时清除，否则设置
+	if groupIn.ActiveHoursStart != nil {
+		builder = builder.SetActiveHoursStart(*groupIn.ActiveHoursStart)
+	} else {
+		builder = builder.ClearActiveHoursStart()
+	}
+	if groupIn.ActiveHoursEnd != nil {
+		builder = builder.SetActiveHoursEnd(*groupIn.ActiveHoursEnd)
+	} else {
+		builder = builder.ClearActiveHoursEnd()
+	}
 
 	updated, err := builder.Save(ctx)
 	if err != nil {

@@ -210,6 +210,16 @@ func RpmLimit(v int) predicate.Group {
 	return predicate.Group(sql.FieldEQ(FieldRpmLimit, v))
 }
 
+// ActiveHoursStart applies equality check predicate on the "active_hours_start" field. It's identical to ActiveHoursStartEQ.
+func ActiveHoursStart(v int) predicate.Group {
+	return predicate.Group(sql.FieldEQ(FieldActiveHoursStart, v))
+}
+
+// ActiveHoursEnd applies equality check predicate on the "active_hours_end" field. It's identical to ActiveHoursEndEQ.
+func ActiveHoursEnd(v int) predicate.Group {
+	return predicate.Group(sql.FieldEQ(FieldActiveHoursEnd, v))
+}
+
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
 func CreatedAtEQ(v time.Time) predicate.Group {
 	return predicate.Group(sql.FieldEQ(FieldCreatedAt, v))
@@ -1438,6 +1448,106 @@ func RpmLimitLT(v int) predicate.Group {
 // RpmLimitLTE applies the LTE predicate on the "rpm_limit" field.
 func RpmLimitLTE(v int) predicate.Group {
 	return predicate.Group(sql.FieldLTE(FieldRpmLimit, v))
+}
+
+// ActiveHoursStartEQ applies the EQ predicate on the "active_hours_start" field.
+func ActiveHoursStartEQ(v int) predicate.Group {
+	return predicate.Group(sql.FieldEQ(FieldActiveHoursStart, v))
+}
+
+// ActiveHoursStartNEQ applies the NEQ predicate on the "active_hours_start" field.
+func ActiveHoursStartNEQ(v int) predicate.Group {
+	return predicate.Group(sql.FieldNEQ(FieldActiveHoursStart, v))
+}
+
+// ActiveHoursStartIn applies the In predicate on the "active_hours_start" field.
+func ActiveHoursStartIn(vs ...int) predicate.Group {
+	return predicate.Group(sql.FieldIn(FieldActiveHoursStart, vs...))
+}
+
+// ActiveHoursStartNotIn applies the NotIn predicate on the "active_hours_start" field.
+func ActiveHoursStartNotIn(vs ...int) predicate.Group {
+	return predicate.Group(sql.FieldNotIn(FieldActiveHoursStart, vs...))
+}
+
+// ActiveHoursStartGT applies the GT predicate on the "active_hours_start" field.
+func ActiveHoursStartGT(v int) predicate.Group {
+	return predicate.Group(sql.FieldGT(FieldActiveHoursStart, v))
+}
+
+// ActiveHoursStartGTE applies the GTE predicate on the "active_hours_start" field.
+func ActiveHoursStartGTE(v int) predicate.Group {
+	return predicate.Group(sql.FieldGTE(FieldActiveHoursStart, v))
+}
+
+// ActiveHoursStartLT applies the LT predicate on the "active_hours_start" field.
+func ActiveHoursStartLT(v int) predicate.Group {
+	return predicate.Group(sql.FieldLT(FieldActiveHoursStart, v))
+}
+
+// ActiveHoursStartLTE applies the LTE predicate on the "active_hours_start" field.
+func ActiveHoursStartLTE(v int) predicate.Group {
+	return predicate.Group(sql.FieldLTE(FieldActiveHoursStart, v))
+}
+
+// ActiveHoursStartIsNil applies the IsNil predicate on the "active_hours_start" field.
+func ActiveHoursStartIsNil() predicate.Group {
+	return predicate.Group(sql.FieldIsNull(FieldActiveHoursStart))
+}
+
+// ActiveHoursStartNotNil applies the NotNil predicate on the "active_hours_start" field.
+func ActiveHoursStartNotNil() predicate.Group {
+	return predicate.Group(sql.FieldNotNull(FieldActiveHoursStart))
+}
+
+// ActiveHoursEndEQ applies the EQ predicate on the "active_hours_end" field.
+func ActiveHoursEndEQ(v int) predicate.Group {
+	return predicate.Group(sql.FieldEQ(FieldActiveHoursEnd, v))
+}
+
+// ActiveHoursEndNEQ applies the NEQ predicate on the "active_hours_end" field.
+func ActiveHoursEndNEQ(v int) predicate.Group {
+	return predicate.Group(sql.FieldNEQ(FieldActiveHoursEnd, v))
+}
+
+// ActiveHoursEndIn applies the In predicate on the "active_hours_end" field.
+func ActiveHoursEndIn(vs ...int) predicate.Group {
+	return predicate.Group(sql.FieldIn(FieldActiveHoursEnd, vs...))
+}
+
+// ActiveHoursEndNotIn applies the NotIn predicate on the "active_hours_end" field.
+func ActiveHoursEndNotIn(vs ...int) predicate.Group {
+	return predicate.Group(sql.FieldNotIn(FieldActiveHoursEnd, vs...))
+}
+
+// ActiveHoursEndGT applies the GT predicate on the "active_hours_end" field.
+func ActiveHoursEndGT(v int) predicate.Group {
+	return predicate.Group(sql.FieldGT(FieldActiveHoursEnd, v))
+}
+
+// ActiveHoursEndGTE applies the GTE predicate on the "active_hours_end" field.
+func ActiveHoursEndGTE(v int) predicate.Group {
+	return predicate.Group(sql.FieldGTE(FieldActiveHoursEnd, v))
+}
+
+// ActiveHoursEndLT applies the LT predicate on the "active_hours_end" field.
+func ActiveHoursEndLT(v int) predicate.Group {
+	return predicate.Group(sql.FieldLT(FieldActiveHoursEnd, v))
+}
+
+// ActiveHoursEndLTE applies the LTE predicate on the "active_hours_end" field.
+func ActiveHoursEndLTE(v int) predicate.Group {
+	return predicate.Group(sql.FieldLTE(FieldActiveHoursEnd, v))
+}
+
+// ActiveHoursEndIsNil applies the IsNil predicate on the "active_hours_end" field.
+func ActiveHoursEndIsNil() predicate.Group {
+	return predicate.Group(sql.FieldIsNull(FieldActiveHoursEnd))
+}
+
+// ActiveHoursEndNotNil applies the NotNil predicate on the "active_hours_end" field.
+func ActiveHoursEndNotNil() predicate.Group {
+	return predicate.Group(sql.FieldNotNull(FieldActiveHoursEnd))
 }
 
 // HasAPIKeys applies the HasEdge predicate on the "api_keys" edge.

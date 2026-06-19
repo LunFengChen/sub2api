@@ -651,6 +651,60 @@ func (_u *GroupUpdate) AddRpmLimit(v int) *GroupUpdate {
 	return _u
 }
 
+// SetActiveHoursStart sets the "active_hours_start" field.
+func (_u *GroupUpdate) SetActiveHoursStart(v int) *GroupUpdate {
+	_u.mutation.ResetActiveHoursStart()
+	_u.mutation.SetActiveHoursStart(v)
+	return _u
+}
+
+// SetNillableActiveHoursStart sets the "active_hours_start" field if the given value is not nil.
+func (_u *GroupUpdate) SetNillableActiveHoursStart(v *int) *GroupUpdate {
+	if v != nil {
+		_u.SetActiveHoursStart(*v)
+	}
+	return _u
+}
+
+// AddActiveHoursStart adds value to the "active_hours_start" field.
+func (_u *GroupUpdate) AddActiveHoursStart(v int) *GroupUpdate {
+	_u.mutation.AddActiveHoursStart(v)
+	return _u
+}
+
+// ClearActiveHoursStart clears the value of the "active_hours_start" field.
+func (_u *GroupUpdate) ClearActiveHoursStart() *GroupUpdate {
+	_u.mutation.ClearActiveHoursStart()
+	return _u
+}
+
+// SetActiveHoursEnd sets the "active_hours_end" field.
+func (_u *GroupUpdate) SetActiveHoursEnd(v int) *GroupUpdate {
+	_u.mutation.ResetActiveHoursEnd()
+	_u.mutation.SetActiveHoursEnd(v)
+	return _u
+}
+
+// SetNillableActiveHoursEnd sets the "active_hours_end" field if the given value is not nil.
+func (_u *GroupUpdate) SetNillableActiveHoursEnd(v *int) *GroupUpdate {
+	if v != nil {
+		_u.SetActiveHoursEnd(*v)
+	}
+	return _u
+}
+
+// AddActiveHoursEnd adds value to the "active_hours_end" field.
+func (_u *GroupUpdate) AddActiveHoursEnd(v int) *GroupUpdate {
+	_u.mutation.AddActiveHoursEnd(v)
+	return _u
+}
+
+// ClearActiveHoursEnd clears the value of the "active_hours_end" field.
+func (_u *GroupUpdate) ClearActiveHoursEnd() *GroupUpdate {
+	_u.mutation.ClearActiveHoursEnd()
+	return _u
+}
+
 // AddAPIKeyIDs adds the "api_keys" edge to the APIKey entity by IDs.
 func (_u *GroupUpdate) AddAPIKeyIDs(ids ...int64) *GroupUpdate {
 	_u.mutation.AddAPIKeyIDs(ids...)
@@ -1134,6 +1188,24 @@ func (_u *GroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.AddedRpmLimit(); ok {
 		_spec.AddField(group.FieldRpmLimit, field.TypeInt, value)
+	}
+	if value, ok := _u.mutation.ActiveHoursStart(); ok {
+		_spec.SetField(group.FieldActiveHoursStart, field.TypeInt, value)
+	}
+	if value, ok := _u.mutation.AddedActiveHoursStart(); ok {
+		_spec.AddField(group.FieldActiveHoursStart, field.TypeInt, value)
+	}
+	if _u.mutation.ActiveHoursStartCleared() {
+		_spec.ClearField(group.FieldActiveHoursStart, field.TypeInt)
+	}
+	if value, ok := _u.mutation.ActiveHoursEnd(); ok {
+		_spec.SetField(group.FieldActiveHoursEnd, field.TypeInt, value)
+	}
+	if value, ok := _u.mutation.AddedActiveHoursEnd(); ok {
+		_spec.AddField(group.FieldActiveHoursEnd, field.TypeInt, value)
+	}
+	if _u.mutation.ActiveHoursEndCleared() {
+		_spec.ClearField(group.FieldActiveHoursEnd, field.TypeInt)
 	}
 	if _u.mutation.APIKeysCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -2064,6 +2136,60 @@ func (_u *GroupUpdateOne) AddRpmLimit(v int) *GroupUpdateOne {
 	return _u
 }
 
+// SetActiveHoursStart sets the "active_hours_start" field.
+func (_u *GroupUpdateOne) SetActiveHoursStart(v int) *GroupUpdateOne {
+	_u.mutation.ResetActiveHoursStart()
+	_u.mutation.SetActiveHoursStart(v)
+	return _u
+}
+
+// SetNillableActiveHoursStart sets the "active_hours_start" field if the given value is not nil.
+func (_u *GroupUpdateOne) SetNillableActiveHoursStart(v *int) *GroupUpdateOne {
+	if v != nil {
+		_u.SetActiveHoursStart(*v)
+	}
+	return _u
+}
+
+// AddActiveHoursStart adds value to the "active_hours_start" field.
+func (_u *GroupUpdateOne) AddActiveHoursStart(v int) *GroupUpdateOne {
+	_u.mutation.AddActiveHoursStart(v)
+	return _u
+}
+
+// ClearActiveHoursStart clears the value of the "active_hours_start" field.
+func (_u *GroupUpdateOne) ClearActiveHoursStart() *GroupUpdateOne {
+	_u.mutation.ClearActiveHoursStart()
+	return _u
+}
+
+// SetActiveHoursEnd sets the "active_hours_end" field.
+func (_u *GroupUpdateOne) SetActiveHoursEnd(v int) *GroupUpdateOne {
+	_u.mutation.ResetActiveHoursEnd()
+	_u.mutation.SetActiveHoursEnd(v)
+	return _u
+}
+
+// SetNillableActiveHoursEnd sets the "active_hours_end" field if the given value is not nil.
+func (_u *GroupUpdateOne) SetNillableActiveHoursEnd(v *int) *GroupUpdateOne {
+	if v != nil {
+		_u.SetActiveHoursEnd(*v)
+	}
+	return _u
+}
+
+// AddActiveHoursEnd adds value to the "active_hours_end" field.
+func (_u *GroupUpdateOne) AddActiveHoursEnd(v int) *GroupUpdateOne {
+	_u.mutation.AddActiveHoursEnd(v)
+	return _u
+}
+
+// ClearActiveHoursEnd clears the value of the "active_hours_end" field.
+func (_u *GroupUpdateOne) ClearActiveHoursEnd() *GroupUpdateOne {
+	_u.mutation.ClearActiveHoursEnd()
+	return _u
+}
+
 // AddAPIKeyIDs adds the "api_keys" edge to the APIKey entity by IDs.
 func (_u *GroupUpdateOne) AddAPIKeyIDs(ids ...int64) *GroupUpdateOne {
 	_u.mutation.AddAPIKeyIDs(ids...)
@@ -2577,6 +2703,24 @@ func (_u *GroupUpdateOne) sqlSave(ctx context.Context) (_node *Group, err error)
 	}
 	if value, ok := _u.mutation.AddedRpmLimit(); ok {
 		_spec.AddField(group.FieldRpmLimit, field.TypeInt, value)
+	}
+	if value, ok := _u.mutation.ActiveHoursStart(); ok {
+		_spec.SetField(group.FieldActiveHoursStart, field.TypeInt, value)
+	}
+	if value, ok := _u.mutation.AddedActiveHoursStart(); ok {
+		_spec.AddField(group.FieldActiveHoursStart, field.TypeInt, value)
+	}
+	if _u.mutation.ActiveHoursStartCleared() {
+		_spec.ClearField(group.FieldActiveHoursStart, field.TypeInt)
+	}
+	if value, ok := _u.mutation.ActiveHoursEnd(); ok {
+		_spec.SetField(group.FieldActiveHoursEnd, field.TypeInt, value)
+	}
+	if value, ok := _u.mutation.AddedActiveHoursEnd(); ok {
+		_spec.AddField(group.FieldActiveHoursEnd, field.TypeInt, value)
+	}
+	if _u.mutation.ActiveHoursEndCleared() {
+		_spec.ClearField(group.FieldActiveHoursEnd, field.TypeInt)
 	}
 	if _u.mutation.APIKeysCleared() {
 		edge := &sqlgraph.EdgeSpec{

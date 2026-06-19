@@ -68,6 +68,10 @@ type Group struct {
 	// 一旦设置即接管该分组用户的限流（覆盖用户级 rpm_limit），可被 user-group rpm_override 进一步覆盖。
 	RPMLimit int
 
+	// 时间段限制（UTC+8）。nil 表示全天可用；支持跨夜（End < Start）。
+	ActiveHoursStart *int
+	ActiveHoursEnd   *int
+
 	CreatedAt time.Time
 	UpdatedAt time.Time
 
@@ -166,4 +170,26 @@ func matchModelPattern(pattern, model string) bool {
 	}
 
 	return false
+}
+
+// IsWithinTimeWindow 判断当前 UTC+8 时间是否在分组允许的时间段内。
+// 两个字段都为 nil 表示全天可用，返回 true。
+// 支持跨夜：ActiveHoursEnd < ActiveHoursStart 时，如 22-6 表示 22:00 到次日 06:00。
+func (g *Group) IsWithinTimeWindow() bool {
+	if g.ActiveHoursStart == nil || g.ActiveHoursEnd == nil {
+		return true
+	}
+	start := *g.ActiveHoursStart
+	end := *g.ActiveHoursEnd
+
+	// 取 UTC+8 当前小时
+	loc := time.FixedZone("CST", 8*60*60)
+	hour := time.Now().In(loc).Hour()
+
+	if start <= end {
+		// 普通时段，如 9-22 表示 09:00-22:00
+		return hour >= start && hour < end
+	}
+	// 跨夜时段，如 22-6 表示 22:00-次日06:00
+	return hour >= start || hour < end
 }
