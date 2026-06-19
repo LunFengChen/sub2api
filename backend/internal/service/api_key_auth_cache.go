@@ -93,6 +93,10 @@ type APIKeyAuthGroupSnapshot struct {
 
 	// RPMLimit 分组级每分钟请求数上限（0 = 不限制）；用于 billing_cache_service.checkRPM 级联判断。
 	RPMLimit int `json:"rpm_limit"`
+
+	// 时间段限制（UTC+8）。nil 表示全天可用；支持跨夜（End < Start）。
+	ActiveHoursStart *int `json:"active_hours_start,omitempty"`
+	ActiveHoursEnd   *int `json:"active_hours_end,omitempty"`
 }
 
 // APIKeyAuthCacheEntry 缓存条目，支持负缓存
