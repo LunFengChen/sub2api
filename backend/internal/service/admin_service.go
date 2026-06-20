@@ -230,6 +230,9 @@ type CreateGroupInput struct {
 	ModelsListConfig            GroupModelsListConfig
 	// RPMLimit 分组 RPM 上限（0 = 不限制）
 	RPMLimit int
+	// 时间段限制（UTC+8）。nil 表示全天可用；支持跨夜（End < Start）。
+	ActiveHoursStart *int
+	ActiveHoursEnd   *int
 	// 从指定分组复制账号（创建分组后在同一事务内绑定）
 	CopyAccountsFromGroupIDs []int64
 }
@@ -271,6 +274,9 @@ type UpdateGroupInput struct {
 	ModelsListConfig            *GroupModelsListConfig
 	// RPMLimit 分组 RPM 上限（0 = 不限制），nil 表示未提供不改动。
 	RPMLimit *int
+	// 时间段限制（UTC+8）。nil 表示未提供不改动；传 -1 表示清除。
+	ActiveHoursStart *int
+	ActiveHoursEnd   *int
 	// 从指定分组复制账号（同步操作：先清空当前分组的账号绑定，再绑定源分组的账号）
 	CopyAccountsFromGroupIDs []int64
 }
@@ -1906,6 +1912,8 @@ func (s *adminServiceImpl) CreateGroup(ctx context.Context, input *CreateGroupIn
 		MessagesDispatchModelConfig:     normalizeOpenAIMessagesDispatchModelConfig(input.MessagesDispatchModelConfig),
 		ModelsListConfig:                normalizeGroupModelsListConfig(input.ModelsListConfig),
 		RPMLimit:                        input.RPMLimit,
+		ActiveHoursStart:                input.ActiveHoursStart,
+		ActiveHoursEnd:                  input.ActiveHoursEnd,
 	}
 	sanitizeGroupMessagesDispatchFields(group)
 	if err := s.groupRepo.Create(ctx, group); err != nil {
@@ -2157,6 +2165,21 @@ func (s *adminServiceImpl) UpdateGroup(ctx context.Context, id int64, input *Upd
 	}
 	if input.RPMLimit != nil {
 		group.RPMLimit = *input.RPMLimit
+	}
+	// 时间段限制：nil 不改动，-1 清除，0-23 设置
+	if input.ActiveHoursStart != nil {
+		if *input.ActiveHoursStart < 0 {
+			group.ActiveHoursStart = nil
+		} else {
+			group.ActiveHoursStart = input.ActiveHoursStart
+		}
+	}
+	if input.ActiveHoursEnd != nil {
+		if *input.ActiveHoursEnd < 0 {
+			group.ActiveHoursEnd = nil
+		} else {
+			group.ActiveHoursEnd = input.ActiveHoursEnd
+		}
 	}
 	sanitizeGroupMessagesDispatchFields(group)
 

@@ -194,6 +194,8 @@ func (r *apiKeyRepository) GetByKeyForAuth(ctx context.Context, key string) (*se
 				group.FieldMessagesDispatchModelConfig,
 				group.FieldModelsListConfig,
 				group.FieldRpmLimit,
+				group.FieldActiveHoursStart,
+				group.FieldActiveHoursEnd,
 			)
 		}).
 		Only(ctx)
@@ -814,6 +816,8 @@ func groupEntityToService(g *dbent.Group) *service.Group {
 		MessagesDispatchModelConfig:     g.MessagesDispatchModelConfig,
 		ModelsListConfig:                g.ModelsListConfig,
 		RPMLimit:                        g.RpmLimit,
+		ActiveHoursStart:                g.ActiveHoursStart,
+		ActiveHoursEnd:                  g.ActiveHoursEnd,
 		CreatedAt:                       g.CreatedAt,
 		UpdatedAt:                       g.UpdatedAt,
 	}

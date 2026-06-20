@@ -363,6 +363,8 @@ func TestAPIContracts(t *testing.T) {
 						"require_oauth_only": false,
 						"require_privacy_set": false,
 						"rpm_limit": 0,
+						"active_hours_start": null,
+						"active_hours_end": null,
 						"created_at": "2025-01-02T03:04:05Z",
 						"updated_at": "2025-01-02T03:04:05Z"
 					}
@@ -882,6 +884,7 @@ func TestAPIContracts(t *testing.T) {
 					"subscription_expiry_notify_enabled": true,
 					"balance_low_notify_threshold": 0,
 					"balance_low_notify_recharge_url": "",
+					"card_shop_url": "",
 					"account_quota_notify_emails": [],
 					"channel_monitor_enabled": true,
 					"channel_monitor_default_interval_seconds": 60,
@@ -1123,6 +1126,7 @@ func TestAPIContracts(t *testing.T) {
 					"subscription_expiry_notify_enabled": true,
 					"balance_low_notify_threshold": 0,
 					"balance_low_notify_recharge_url": "",
+					"card_shop_url": "",
 					"account_quota_notify_emails": [],
 					"channel_monitor_enabled": true,
 					"channel_monitor_default_interval_seconds": 60,

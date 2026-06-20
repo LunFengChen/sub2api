@@ -2219,6 +2219,8 @@ export default {
         rpmLimit: '每分钟请求数 (RPM)',
         rpmLimitPlaceholder: '0 表示不限制',
         rpmLimitHint: '每用户在本分组每分钟最大请求数，0 = 不限制；一旦设置即接管该用户的限流（覆盖用户级 rpm_limit）',
+        activeHours: '可用时段（UTC+8）',
+        activeHoursHint: '留空表示全天可用。支持跨夜，如 22 到 6 表示深夜 22:00 到次日 06:00',
         exclusiveLabel: '专属分组',
         exclusiveHint: '专属分组，可以手动指定给用户',
         platformLabel: '平台限制',

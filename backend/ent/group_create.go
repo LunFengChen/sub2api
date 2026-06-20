@@ -495,6 +495,34 @@ func (_c *GroupCreate) SetNillableRpmLimit(v *int) *GroupCreate {
 	return _c
 }
 
+// SetActiveHoursStart sets the "active_hours_start" field.
+func (_c *GroupCreate) SetActiveHoursStart(v int) *GroupCreate {
+	_c.mutation.SetActiveHoursStart(v)
+	return _c
+}
+
+// SetNillableActiveHoursStart sets the "active_hours_start" field if the given value is not nil.
+func (_c *GroupCreate) SetNillableActiveHoursStart(v *int) *GroupCreate {
+	if v != nil {
+		_c.SetActiveHoursStart(*v)
+	}
+	return _c
+}
+
+// SetActiveHoursEnd sets the "active_hours_end" field.
+func (_c *GroupCreate) SetActiveHoursEnd(v int) *GroupCreate {
+	_c.mutation.SetActiveHoursEnd(v)
+	return _c
+}
+
+// SetNillableActiveHoursEnd sets the "active_hours_end" field if the given value is not nil.
+func (_c *GroupCreate) SetNillableActiveHoursEnd(v *int) *GroupCreate {
+	if v != nil {
+		_c.SetActiveHoursEnd(*v)
+	}
+	return _c
+}
+
 // AddAPIKeyIDs adds the "api_keys" edge to the APIKey entity by IDs.
 func (_c *GroupCreate) AddAPIKeyIDs(ids ...int64) *GroupCreate {
 	_c.mutation.AddAPIKeyIDs(ids...)
@@ -988,6 +1016,14 @@ func (_c *GroupCreate) createSpec() (*Group, *sqlgraph.CreateSpec) {
 	if value, ok := _c.mutation.RpmLimit(); ok {
 		_spec.SetField(group.FieldRpmLimit, field.TypeInt, value)
 		_node.RpmLimit = value
+	}
+	if value, ok := _c.mutation.ActiveHoursStart(); ok {
+		_spec.SetField(group.FieldActiveHoursStart, field.TypeInt, value)
+		_node.ActiveHoursStart = &value
+	}
+	if value, ok := _c.mutation.ActiveHoursEnd(); ok {
+		_spec.SetField(group.FieldActiveHoursEnd, field.TypeInt, value)
+		_node.ActiveHoursEnd = &value
 	}
 	if nodes := _c.mutation.APIKeysIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
@@ -1697,6 +1733,54 @@ func (u *GroupUpsert) AddRpmLimit(v int) *GroupUpsert {
 	return u
 }
 
+// SetActiveHoursStart sets the "active_hours_start" field.
+func (u *GroupUpsert) SetActiveHoursStart(v int) *GroupUpsert {
+	u.Set(group.FieldActiveHoursStart, v)
+	return u
+}
+
+// UpdateActiveHoursStart sets the "active_hours_start" field to the value that was provided on create.
+func (u *GroupUpsert) UpdateActiveHoursStart() *GroupUpsert {
+	u.SetExcluded(group.FieldActiveHoursStart)
+	return u
+}
+
+// AddActiveHoursStart adds v to the "active_hours_start" field.
+func (u *GroupUpsert) AddActiveHoursStart(v int) *GroupUpsert {
+	u.Add(group.FieldActiveHoursStart, v)
+	return u
+}
+
+// ClearActiveHoursStart clears the value of the "active_hours_start" field.
+func (u *GroupUpsert) ClearActiveHoursStart() *GroupUpsert {
+	u.SetNull(group.FieldActiveHoursStart)
+	return u
+}
+
+// SetActiveHoursEnd sets the "active_hours_end" field.
+func (u *GroupUpsert) SetActiveHoursEnd(v int) *GroupUpsert {
+	u.Set(group.FieldActiveHoursEnd, v)
+	return u
+}
+
+// UpdateActiveHoursEnd sets the "active_hours_end" field to the value that was provided on create.
+func (u *GroupUpsert) UpdateActiveHoursEnd() *GroupUpsert {
+	u.SetExcluded(group.FieldActiveHoursEnd)
+	return u
+}
+
+// AddActiveHoursEnd adds v to the "active_hours_end" field.
+func (u *GroupUpsert) AddActiveHoursEnd(v int) *GroupUpsert {
+	u.Add(group.FieldActiveHoursEnd, v)
+	return u
+}
+
+// ClearActiveHoursEnd clears the value of the "active_hours_end" field.
+func (u *GroupUpsert) ClearActiveHoursEnd() *GroupUpsert {
+	u.SetNull(group.FieldActiveHoursEnd)
+	return u
+}
+
 // UpdateNewValues updates the mutable fields using the new values that were set on create.
 // Using this option is equivalent to using:
 //
@@ -2383,6 +2467,62 @@ func (u *GroupUpsertOne) AddRpmLimit(v int) *GroupUpsertOne {
 func (u *GroupUpsertOne) UpdateRpmLimit() *GroupUpsertOne {
 	return u.Update(func(s *GroupUpsert) {
 		s.UpdateRpmLimit()
+	})
+}
+
+// SetActiveHoursStart sets the "active_hours_start" field.
+func (u *GroupUpsertOne) SetActiveHoursStart(v int) *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.SetActiveHoursStart(v)
+	})
+}
+
+// AddActiveHoursStart adds v to the "active_hours_start" field.
+func (u *GroupUpsertOne) AddActiveHoursStart(v int) *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.AddActiveHoursStart(v)
+	})
+}
+
+// UpdateActiveHoursStart sets the "active_hours_start" field to the value that was provided on create.
+func (u *GroupUpsertOne) UpdateActiveHoursStart() *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.UpdateActiveHoursStart()
+	})
+}
+
+// ClearActiveHoursStart clears the value of the "active_hours_start" field.
+func (u *GroupUpsertOne) ClearActiveHoursStart() *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.ClearActiveHoursStart()
+	})
+}
+
+// SetActiveHoursEnd sets the "active_hours_end" field.
+func (u *GroupUpsertOne) SetActiveHoursEnd(v int) *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.SetActiveHoursEnd(v)
+	})
+}
+
+// AddActiveHoursEnd adds v to the "active_hours_end" field.
+func (u *GroupUpsertOne) AddActiveHoursEnd(v int) *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.AddActiveHoursEnd(v)
+	})
+}
+
+// UpdateActiveHoursEnd sets the "active_hours_end" field to the value that was provided on create.
+func (u *GroupUpsertOne) UpdateActiveHoursEnd() *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.UpdateActiveHoursEnd()
+	})
+}
+
+// ClearActiveHoursEnd clears the value of the "active_hours_end" field.
+func (u *GroupUpsertOne) ClearActiveHoursEnd() *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.ClearActiveHoursEnd()
 	})
 }
 
@@ -3238,6 +3378,62 @@ func (u *GroupUpsertBulk) AddRpmLimit(v int) *GroupUpsertBulk {
 func (u *GroupUpsertBulk) UpdateRpmLimit() *GroupUpsertBulk {
 	return u.Update(func(s *GroupUpsert) {
 		s.UpdateRpmLimit()
+	})
+}
+
+// SetActiveHoursStart sets the "active_hours_start" field.
+func (u *GroupUpsertBulk) SetActiveHoursStart(v int) *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.SetActiveHoursStart(v)
+	})
+}
+
+// AddActiveHoursStart adds v to the "active_hours_start" field.
+func (u *GroupUpsertBulk) AddActiveHoursStart(v int) *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.AddActiveHoursStart(v)
+	})
+}
+
+// UpdateActiveHoursStart sets the "active_hours_start" field to the value that was provided on create.
+func (u *GroupUpsertBulk) UpdateActiveHoursStart() *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.UpdateActiveHoursStart()
+	})
+}
+
+// ClearActiveHoursStart clears the value of the "active_hours_start" field.
+func (u *GroupUpsertBulk) ClearActiveHoursStart() *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.ClearActiveHoursStart()
+	})
+}
+
+// SetActiveHoursEnd sets the "active_hours_end" field.
+func (u *GroupUpsertBulk) SetActiveHoursEnd(v int) *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.SetActiveHoursEnd(v)
+	})
+}
+
+// AddActiveHoursEnd adds v to the "active_hours_end" field.
+func (u *GroupUpsertBulk) AddActiveHoursEnd(v int) *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.AddActiveHoursEnd(v)
+	})
+}
+
+// UpdateActiveHoursEnd sets the "active_hours_end" field to the value that was provided on create.
+func (u *GroupUpsertBulk) UpdateActiveHoursEnd() *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.UpdateActiveHoursEnd()
+	})
+}
+
+// ClearActiveHoursEnd clears the value of the "active_hours_end" field.
+func (u *GroupUpsertBulk) ClearActiveHoursEnd() *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.ClearActiveHoursEnd()
 	})
 }
 

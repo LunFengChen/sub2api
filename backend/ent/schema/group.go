@@ -164,6 +164,17 @@ func (Group) Fields() []ent.Field {
 		field.Int("rpm_limit").
 			Default(0).
 			Comment("分组 RPM 上限，0 表示不限制；设置后接管该分组用户的限流"),
+
+		// 时间段限制（added by migration 154）
+		// NULL 表示全天可用；支持跨夜（end < start，如 22-6 表示 22:00-次日06:00）
+		field.Int("active_hours_start").
+			Optional().
+			Nillable().
+			Comment("允许访问的起始小时（UTC+8，0-23），NULL 表示全天可用"),
+		field.Int("active_hours_end").
+			Optional().
+			Nillable().
+			Comment("允许访问的结束小时（UTC+8，0-23），NULL 表示全天可用；end < start 表示跨夜"),
 	}
 }
 

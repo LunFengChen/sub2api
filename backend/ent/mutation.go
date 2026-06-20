@@ -15098,6 +15098,10 @@ type GroupMutation struct {
 	models_list_config                      *domain.GroupModelsListConfig
 	rpm_limit                               *int
 	addrpm_limit                            *int
+	active_hours_start                      *int
+	addactive_hours_start                   *int
+	active_hours_end                        *int
+	addactive_hours_end                     *int
 	clearedFields                           map[string]struct{}
 	api_keys                                map[int64]struct{}
 	removedapi_keys                         map[int64]struct{}
@@ -16906,6 +16910,146 @@ func (m *GroupMutation) ResetRpmLimit() {
 	m.addrpm_limit = nil
 }
 
+// SetActiveHoursStart sets the "active_hours_start" field.
+func (m *GroupMutation) SetActiveHoursStart(i int) {
+	m.active_hours_start = &i
+	m.addactive_hours_start = nil
+}
+
+// ActiveHoursStart returns the value of the "active_hours_start" field in the mutation.
+func (m *GroupMutation) ActiveHoursStart() (r int, exists bool) {
+	v := m.active_hours_start
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldActiveHoursStart returns the old "active_hours_start" field's value of the Group entity.
+// If the Group object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GroupMutation) OldActiveHoursStart(ctx context.Context) (v *int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldActiveHoursStart is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldActiveHoursStart requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldActiveHoursStart: %w", err)
+	}
+	return oldValue.ActiveHoursStart, nil
+}
+
+// AddActiveHoursStart adds i to the "active_hours_start" field.
+func (m *GroupMutation) AddActiveHoursStart(i int) {
+	if m.addactive_hours_start != nil {
+		*m.addactive_hours_start += i
+	} else {
+		m.addactive_hours_start = &i
+	}
+}
+
+// AddedActiveHoursStart returns the value that was added to the "active_hours_start" field in this mutation.
+func (m *GroupMutation) AddedActiveHoursStart() (r int, exists bool) {
+	v := m.addactive_hours_start
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearActiveHoursStart clears the value of the "active_hours_start" field.
+func (m *GroupMutation) ClearActiveHoursStart() {
+	m.active_hours_start = nil
+	m.addactive_hours_start = nil
+	m.clearedFields[group.FieldActiveHoursStart] = struct{}{}
+}
+
+// ActiveHoursStartCleared returns if the "active_hours_start" field was cleared in this mutation.
+func (m *GroupMutation) ActiveHoursStartCleared() bool {
+	_, ok := m.clearedFields[group.FieldActiveHoursStart]
+	return ok
+}
+
+// ResetActiveHoursStart resets all changes to the "active_hours_start" field.
+func (m *GroupMutation) ResetActiveHoursStart() {
+	m.active_hours_start = nil
+	m.addactive_hours_start = nil
+	delete(m.clearedFields, group.FieldActiveHoursStart)
+}
+
+// SetActiveHoursEnd sets the "active_hours_end" field.
+func (m *GroupMutation) SetActiveHoursEnd(i int) {
+	m.active_hours_end = &i
+	m.addactive_hours_end = nil
+}
+
+// ActiveHoursEnd returns the value of the "active_hours_end" field in the mutation.
+func (m *GroupMutation) ActiveHoursEnd() (r int, exists bool) {
+	v := m.active_hours_end
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldActiveHoursEnd returns the old "active_hours_end" field's value of the Group entity.
+// If the Group object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GroupMutation) OldActiveHoursEnd(ctx context.Context) (v *int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldActiveHoursEnd is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldActiveHoursEnd requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldActiveHoursEnd: %w", err)
+	}
+	return oldValue.ActiveHoursEnd, nil
+}
+
+// AddActiveHoursEnd adds i to the "active_hours_end" field.
+func (m *GroupMutation) AddActiveHoursEnd(i int) {
+	if m.addactive_hours_end != nil {
+		*m.addactive_hours_end += i
+	} else {
+		m.addactive_hours_end = &i
+	}
+}
+
+// AddedActiveHoursEnd returns the value that was added to the "active_hours_end" field in this mutation.
+func (m *GroupMutation) AddedActiveHoursEnd() (r int, exists bool) {
+	v := m.addactive_hours_end
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearActiveHoursEnd clears the value of the "active_hours_end" field.
+func (m *GroupMutation) ClearActiveHoursEnd() {
+	m.active_hours_end = nil
+	m.addactive_hours_end = nil
+	m.clearedFields[group.FieldActiveHoursEnd] = struct{}{}
+}
+
+// ActiveHoursEndCleared returns if the "active_hours_end" field was cleared in this mutation.
+func (m *GroupMutation) ActiveHoursEndCleared() bool {
+	_, ok := m.clearedFields[group.FieldActiveHoursEnd]
+	return ok
+}
+
+// ResetActiveHoursEnd resets all changes to the "active_hours_end" field.
+func (m *GroupMutation) ResetActiveHoursEnd() {
+	m.active_hours_end = nil
+	m.addactive_hours_end = nil
+	delete(m.clearedFields, group.FieldActiveHoursEnd)
+}
+
 // AddAPIKeyIDs adds the "api_keys" edge to the APIKey entity by ids.
 func (m *GroupMutation) AddAPIKeyIDs(ids ...int64) {
 	if m.api_keys == nil {
@@ -17264,7 +17408,7 @@ func (m *GroupMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *GroupMutation) Fields() []string {
-	fields := make([]string, 0, 35)
+	fields := make([]string, 0, 37)
 	if m.created_at != nil {
 		fields = append(fields, group.FieldCreatedAt)
 	}
@@ -17370,6 +17514,12 @@ func (m *GroupMutation) Fields() []string {
 	if m.rpm_limit != nil {
 		fields = append(fields, group.FieldRpmLimit)
 	}
+	if m.active_hours_start != nil {
+		fields = append(fields, group.FieldActiveHoursStart)
+	}
+	if m.active_hours_end != nil {
+		fields = append(fields, group.FieldActiveHoursEnd)
+	}
 	return fields
 }
 
@@ -17448,6 +17598,10 @@ func (m *GroupMutation) Field(name string) (ent.Value, bool) {
 		return m.ModelsListConfig()
 	case group.FieldRpmLimit:
 		return m.RpmLimit()
+	case group.FieldActiveHoursStart:
+		return m.ActiveHoursStart()
+	case group.FieldActiveHoursEnd:
+		return m.ActiveHoursEnd()
 	}
 	return nil, false
 }
@@ -17527,6 +17681,10 @@ func (m *GroupMutation) OldField(ctx context.Context, name string) (ent.Value, e
 		return m.OldModelsListConfig(ctx)
 	case group.FieldRpmLimit:
 		return m.OldRpmLimit(ctx)
+	case group.FieldActiveHoursStart:
+		return m.OldActiveHoursStart(ctx)
+	case group.FieldActiveHoursEnd:
+		return m.OldActiveHoursEnd(ctx)
 	}
 	return nil, fmt.Errorf("unknown Group field %s", name)
 }
@@ -17781,6 +17939,20 @@ func (m *GroupMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetRpmLimit(v)
 		return nil
+	case group.FieldActiveHoursStart:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetActiveHoursStart(v)
+		return nil
+	case group.FieldActiveHoursEnd:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetActiveHoursEnd(v)
+		return nil
 	}
 	return fmt.Errorf("unknown Group field %s", name)
 }
@@ -17828,6 +18000,12 @@ func (m *GroupMutation) AddedFields() []string {
 	if m.addrpm_limit != nil {
 		fields = append(fields, group.FieldRpmLimit)
 	}
+	if m.addactive_hours_start != nil {
+		fields = append(fields, group.FieldActiveHoursStart)
+	}
+	if m.addactive_hours_end != nil {
+		fields = append(fields, group.FieldActiveHoursEnd)
+	}
 	return fields
 }
 
@@ -17862,6 +18040,10 @@ func (m *GroupMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedSortOrder()
 	case group.FieldRpmLimit:
 		return m.AddedRpmLimit()
+	case group.FieldActiveHoursStart:
+		return m.AddedActiveHoursStart()
+	case group.FieldActiveHoursEnd:
+		return m.AddedActiveHoursEnd()
 	}
 	return nil, false
 }
@@ -17962,6 +18144,20 @@ func (m *GroupMutation) AddField(name string, value ent.Value) error {
 		}
 		m.AddRpmLimit(v)
 		return nil
+	case group.FieldActiveHoursStart:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddActiveHoursStart(v)
+		return nil
+	case group.FieldActiveHoursEnd:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddActiveHoursEnd(v)
+		return nil
 	}
 	return fmt.Errorf("unknown Group numeric field %s", name)
 }
@@ -18002,6 +18198,12 @@ func (m *GroupMutation) ClearedFields() []string {
 	}
 	if m.FieldCleared(group.FieldModelRouting) {
 		fields = append(fields, group.FieldModelRouting)
+	}
+	if m.FieldCleared(group.FieldActiveHoursStart) {
+		fields = append(fields, group.FieldActiveHoursStart)
+	}
+	if m.FieldCleared(group.FieldActiveHoursEnd) {
+		fields = append(fields, group.FieldActiveHoursEnd)
 	}
 	return fields
 }
@@ -18049,6 +18251,12 @@ func (m *GroupMutation) ClearField(name string) error {
 		return nil
 	case group.FieldModelRouting:
 		m.ClearModelRouting()
+		return nil
+	case group.FieldActiveHoursStart:
+		m.ClearActiveHoursStart()
+		return nil
+	case group.FieldActiveHoursEnd:
+		m.ClearActiveHoursEnd()
 		return nil
 	}
 	return fmt.Errorf("unknown Group nullable field %s", name)
@@ -18162,6 +18370,12 @@ func (m *GroupMutation) ResetField(name string) error {
 		return nil
 	case group.FieldRpmLimit:
 		m.ResetRpmLimit()
+		return nil
+	case group.FieldActiveHoursStart:
+		m.ResetActiveHoursStart()
+		return nil
+	case group.FieldActiveHoursEnd:
+		m.ResetActiveHoursEnd()
 		return nil
 	}
 	return fmt.Errorf("unknown Group field %s", name)

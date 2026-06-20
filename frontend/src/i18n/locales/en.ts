@@ -2161,7 +2161,9 @@ export default {
         exclusive: 'Exclusive Group',
         rpmLimit: 'Requests Per Minute (RPM)',
         rpmLimitPlaceholder: '0 = unlimited',
-        rpmLimitHint: 'Max requests per minute for each user in this group; 0 = unlimited. Once set, it takes over per-user rate limiting in this group (overrides the user-level rpm_limit fallback).'
+        rpmLimitHint: 'Max requests per minute for each user in this group; 0 = unlimited. Once set, it takes over per-user rate limiting in this group (overrides the user-level rpm_limit fallback).',
+        activeHours: 'Active Hours (UTC+8)',
+        activeHoursHint: 'Leave empty for 24h access. Supports overnight, e.g. 22 to 6 means 22:00 to next day 06:00.'
       },
       enterGroupName: 'Enter group name',
       optionalDescription: 'Optional description',

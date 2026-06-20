@@ -14,7 +14,7 @@ import (
 	"github.com/dgraph-io/ristretto"
 )
 
-const apiKeyAuthSnapshotVersion = 12 // v12: include exclusive group authorization fields
+const apiKeyAuthSnapshotVersion = 13 // v13: include active_hours_start/active_hours_end for group time window
 
 type apiKeyAuthCacheConfig struct {
 	l1Size        int
@@ -276,6 +276,8 @@ func (s *APIKeyService) snapshotFromAPIKey(ctx context.Context, apiKey *APIKey) 
 			MessagesDispatchModelConfig:     apiKey.Group.MessagesDispatchModelConfig,
 			ModelsListConfig:                apiKey.Group.ModelsListConfig,
 			RPMLimit:                        apiKey.Group.RPMLimit,
+			ActiveHoursStart:                apiKey.Group.ActiveHoursStart,
+			ActiveHoursEnd:                  apiKey.Group.ActiveHoursEnd,
 		}
 	}
 	return snapshot
@@ -349,6 +351,8 @@ func (s *APIKeyService) snapshotToAPIKey(key string, snapshot *APIKeyAuthSnapsho
 			MessagesDispatchModelConfig:     snapshot.Group.MessagesDispatchModelConfig,
 			ModelsListConfig:                snapshot.Group.ModelsListConfig,
 			RPMLimit:                        snapshot.Group.RPMLimit,
+			ActiveHoursStart:                snapshot.Group.ActiveHoursStart,
+			ActiveHoursEnd:                  snapshot.Group.ActiveHoursEnd,
 		}
 	}
 	s.compileAPIKeyIPRules(apiKey)

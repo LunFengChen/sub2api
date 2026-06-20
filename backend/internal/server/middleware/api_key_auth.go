@@ -126,6 +126,9 @@ func apiKeyAuthWithSubscription(apiKeyService *service.APIKeyService, subscripti
 		if abortIfAPIKeyGroupNotAllowed(c, apiKey) {
 			return
 		}
+		if abortIfGroupTimeWindowClosed(c, apiKey) {
+			return
+		}
 
 		// ── 4. SimpleMode → early return ─────────────────────────────
 
@@ -331,4 +334,18 @@ func validateAPIKeyGroupAvailable(apiKey *service.APIKey) (string, string, bool)
 		return "GROUP_DISABLED", "API Key 所属分组已停用", false
 	}
 	return "", "", true
+}
+
+// abortIfGroupTimeWindowClosed 检查分组时间段限制（UTC+8）。
+// 时间段外的请求返回 403 GROUP_TIME_WINDOW_CLOSED。
+func abortIfGroupTimeWindowClosed(c *gin.Context, apiKey *service.APIKey) bool {
+	if apiKey == nil || apiKey.Group == nil {
+		return false
+	}
+	if apiKey.Group.IsWithinTimeWindow() {
+		return false
+	}
+	service.MarkOpsClientBusinessLimited(c, service.OpsClientBusinessLimitedReasonAPIKeyGroupUnavailable)
+	AbortWithError(c, 403, "GROUP_TIME_WINDOW_CLOSED", "当前时间段该分组不可用")
+	return true
 }
